@@ -2,6 +2,9 @@
 simple api making use of twitter feeds and the created with the django rest framework
 ```
 pip install -r requirements.txt
+
+python manage.py makemigrations
+python manage.py migrate
 python mange.py runserver```
 
 EndPoints
