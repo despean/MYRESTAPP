@@ -1,34 +1,32 @@
-from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from rest_framework.renderers import JSONRenderer
-from rest_framework.parsers import JSONParser
 from simpleapi.models import Trending
 from simpleapi.tweetcollections import *
 from simpleapi.serializers import TrendsSerializers
-
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from django.http import HttpResponse, JsonResponse
 
 # Create your views here.
 
-@csrf_exempt
-def all_trens(request):
+@api_view(['GET'])
+def all_trens(request, format=None):
     if request.method == 'GET':
-        trens = Trending.objects.all()
+        trens = Trending.objects.all()[500:2000]
         serializer = TrendsSerializers(trens, many=True)
-        return JsonResponse(serializer.data, safe=False)
+        return Response(serializer.data)
 
-
-def given_trend(request, id):
+@api_view(['GET'])
+def given_trend(request, id, format ='xml'):
     try:
-        trend = Trending.objects.get(pk=id)
+        trend = Trending.objects.get(tweet_id=id)
     except Trending.DoesNotExist:
-        return HttpResponse(status=404)
+        return Response(status=404)
 
     if request.method == 'GET':
         serializer = TrendsSerializers(trend)
-        return JsonResponse(serializer.data)
+        return Response(serializer.data)
 
+@api_view(['GET'])
 def scrap(request):
     tweet_collection(Trending)
     print('--------------------Done!!!----------------------')
-    return JsonResponse({"report":"Done","Status":200, "url":"http://127.0.0.1:8000/api/v1/trends"}, safe=False)
+    return JsonResponse({"report":"Done","Status":200, "url":"http://127.0.0.1:8000/api/v1/trends"})

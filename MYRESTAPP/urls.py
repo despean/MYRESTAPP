@@ -15,11 +15,11 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from simpleapi import views
+from simpleapi.views import scrap
 
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/v1/', include('simpleapi.urls')),
-    url(r'scraptweet/$', views.scrap),
+    url(r'scraptweet/$', scrap),
 ]

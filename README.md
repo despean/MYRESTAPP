@@ -1,7 +1,7 @@
  # MYRESTAPP
 simple api making use of twitter feeds and the created with the django rest framework
 ```
-pip install requirements.txt
+pip install -r requirements.txt
 python mange.py runserver```
 
 EndPoints
