@@ -4,11 +4,13 @@ from simpleapi.serializers import TrendsSerializers
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.http import HttpResponse, JsonResponse
+from rest_framework import permissions
 
 # Create your views here.
 
 @api_view(['GET'])
 def all_trens(request, format=None):
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     if request.method == 'GET':
         trens = Trending.objects.all()[500:2000]
         serializer = TrendsSerializers(trens, many=True)
@@ -16,6 +18,7 @@ def all_trens(request, format=None):
 
 @api_view(['GET'])
 def given_trend(request, id, format ='xml'):
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     try:
         trend = Trending.objects.get(tweet_id=id)
     except Trending.DoesNotExist:
