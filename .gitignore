@@ -1,2 +1,5 @@
 .idea/
 db.sqlite3
+MYRESTAPP/__pycache__/
+simpleapi/__pycache__/
+simpleapi/migrations/__pycache__/
