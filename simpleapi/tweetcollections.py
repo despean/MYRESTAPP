@@ -39,6 +39,8 @@ def tweet_collection(trending):
             data['hash_tag'] = topic
 
             insertTrends(data, trending)
+        break
+
 
     print('-------------------Done!!!--------------------')
 
